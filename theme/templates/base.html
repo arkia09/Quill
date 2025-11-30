@@ -8,18 +8,14 @@
 
     {% tailwind_css %}
 
-    <!-- Poppins for UI -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Handlee for posts / handwritten content -->
     <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
 
-    <!-- Subtle paper-like texture -->
     <style>
       body {
         font-family: 'Poppins', sans-serif;
       }
-
       .handwriting {
         font-family: 'Handlee', cursive;
       }
@@ -31,31 +27,68 @@
   <body class="min-h-screen flex flex-col">
 
     <!-- NAVBAR -->
-    <nav class="flex justify-between items-center px-6 py-4
-                bg-[#e8dcc5]/90 backdrop-blur-sm border-b border-[#c9b79e] shadow-sm">
+    <nav class="flex justify-between items-center px-6 py-4 w-full 
+                bg-[#e8dcc5]/90 backdrop-blur-sm border-b border-[#c9b79e] shadow-sm 
+                fixed top-0 left-0 z-40">
 
       <h1 class="text-2xl font-semibold text-[#6b4f32] tracking-wide">Quill</h1>
 
       <div class="flex items-center space-x-6 text-[#6b4f32]">
+
         <a href="{% url 'post_list' %}" class="hover:text-black transition">Home</a>
         <a href="#" class="hover:text-black transition">Explore</a>
         <a href="{% url 'profile_list' %}" class="hover:text-black transition">Profiles</a>
 
-        {% if user.is_authenticated %}
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button class="hover:text-black transition" type="submit">Logout</button>
-          </form>
-        {% else %}
-          <a href="{% url 'login' %}" class="hover:text-black transition">Login</a>
-          <a href="{% url 'register' %}" class="hover:text-black transition">Sign Up</a>
-        {% endif %}
+        <!-- Profile wrapper -->
+        <div class="relative">
+          <button 
+            id="profileToggle"
+            class="w-full flex items-center gap-3 p-2 rounded hover:bg-gray-200 transition">
 
-        {% if user.is_authenticated %}
-          <a href="{% url 'profile' request.user.pk %}" class="hover:text-black transition">My Profile</a>
-        {% endif %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+              <path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/>
+            </svg>
+
+            <div class="text-left">
+              {% if user.is_authenticated %}
+                <p class="text-sm font-poppins font-semibold text-[#5a4634]">
+                  {{ user.username }}
+                </p>
+              {% else %}
+                <p class="text-sm font-poppins font-semibold text-[#5a4634]">Guest</p>
+              {% endif %}
+              <p class="text-sm text-gray-500">View options</p>
+            </div>
+          </button>
+
+          <!-- Dropdown -->
+          <div 
+            id="profileMenu"
+            class="absolute top-full left-0 mt-2 bg-white border border-[#c9b79e] 
+                   rounded-lg shadow-lg hidden p-3 space-y-2 z-50">
+
+            {% if user.is_authenticated %}
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="hover:text-black transition" type="submit">Logout</button>
+              </form>
+
+              <a href="{% url 'profile' request.user.pk %}" class="block hover:text-black transition">
+                My Profile
+              </a>
+
+            {% else %}
+              <a href="{% url 'login' %}" class="block hover:text-black transition">Login</a>
+              <a href="{% url 'register' %}" class="block hover:text-black transition">Sign Up</a>
+            {% endif %}
+          </div>
+        </div>
       </div>
+
     </nav>
+
+    <!-- Spacing below fixed navbar -->
+    <div class="h-20"></div>
 
     <!-- Django messages -->
     {% if messages %}
@@ -82,6 +115,14 @@
     </footer>
 
     {% block extra_scripts %}
+    <script>
+      const toggleBtn = document.getElementById('profileToggle');
+      const menu = document.getElementById('profileMenu');
+
+      toggleBtn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    </script>
     {% endblock extra_scripts %}
 
   </body>

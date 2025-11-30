@@ -10,6 +10,8 @@
     --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
     --color-red-800: oklch(44.4% 0.177 26.899);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -204,14 +206,23 @@
   .absolute {
     position: absolute;
   }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
   .static {
     position: static;
   }
+  .top-0 {
+    top: calc(var(--spacing) * 0);
+  }
   .top-1\/2 {
     top: calc(1/2 * 100%);
+  }
+  .top-full {
+    top: 100%;
   }
   .right-0 {
     right: calc(var(--spacing) * 0);
@@ -219,8 +230,17 @@
   .right-1 {
     right: calc(var(--spacing) * 1);
   }
+  .left-0 {
+    left: calc(var(--spacing) * 0);
+  }
   .z-20 {
     z-index: 20;
+  }
+  .z-40 {
+    z-index: 40;
+  }
+  .z-50 {
+    z-index: 50;
   }
   .container {
     width: 100%;
@@ -309,6 +329,9 @@
   }
   .h-20 {
     height: calc(var(--spacing) * 20);
+  }
+  .min-h-\[70vh\] {
+    min-height: 70vh;
   }
   .min-h-\[80vh\] {
     min-height: 80vh;
@@ -499,6 +522,9 @@
   .border-\[\#d6c8bc\] {
     border-color: #d6c8bc;
   }
+  .border-\[\#d8c7b6\] {
+    border-color: #d8c7b6;
+  }
   .border-\[\#d9c7b8\] {
     border-color: #d9c7b8;
   }
@@ -547,6 +573,9 @@
   .bg-\[\#f4eee7\] {
     background-color: #f4eee7;
   }
+  .bg-\[\#f6efe7\] {
+    background-color: #f6efe7;
+  }
   .bg-\[\#f7f0e8\] {
     background-color: #f7f0e8;
   }
@@ -561,6 +590,9 @@
   }
   .bg-red-700 {
     background-color: var(--color-red-700);
+  }
+  .bg-white {
+    background-color: var(--color-white);
   }
   .bg-\[url\(\'https\:\/\/www\.transparenttextures\.com\/patterns\/asfalt-light\.png\'\)\] {
     background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
@@ -694,11 +726,17 @@
   .text-\[\#5f4634\] {
     color: #5f4634;
   }
+  .text-\[\#6b4c3b\] {
+    color: #6b4c3b;
+  }
   .text-\[\#6b4f32\] {
     color: #6b4f32;
   }
   .text-\[\#6b5645\] {
     color: #6b5645;
+  }
+  .text-\[\#7a5f4a\] {
+    color: #7a5f4a;
   }
   .text-\[\#7a6a58\] {
     color: #7a6a58;
@@ -723,6 +761,9 @@
   }
   .text-\[\#f9f6f2\] {
     color: #f9f6f2;
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
   }
   .text-red-600 {
     color: var(--color-red-600);
@@ -800,6 +841,11 @@
   @media (hover: hover) {
     .hover\:bg-\[\#e8dcc5\]:hover {
       background-color: #e8dcc5;
+    }
+  }
+  @media (hover: hover) {
+    .hover\:bg-gray-200:hover {
+      background-color: var(--color-gray-200);
     }
   }
   @media (hover: hover) {

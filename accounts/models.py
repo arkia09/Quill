@@ -8,7 +8,7 @@ class Profile(models.Model):
     follows = models.ManyToManyField("self", related_name='followed_by',symmetrical=False, blank=True)
     name = models.CharField(max_length=100)
     bio = models.TextField(max_length=300, blank=True)
-
+    is_email_verified = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username
     
